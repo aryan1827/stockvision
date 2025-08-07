@@ -1,0 +1,46 @@
+.menu-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menus {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menus ul {
+  display: flex;              /* 🔥 This makes the menu horizontal */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;                  /* Optional: space between items */
+}
+
+.menus li p {
+  margin: 0;                  /* Remove default paragraph margin */
+  cursor: pointer;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  background-color: #ccc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.username {
+  margin: 0;
+  font-size: 14px;
+}
