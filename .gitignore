@@ -1,0 +1,12 @@
+# Ignore all node_modules folders in subdirectories
+**/node_modules/
+
+# Ignore all build directories from React or other tools
+**/build/
+
+# Ignore environment variable files from any sub-project
+**/.env
+**/.env.*
+
+# Ignore macOS system file
+.DS_Store
