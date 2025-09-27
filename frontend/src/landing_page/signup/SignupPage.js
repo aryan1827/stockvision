@@ -1,9 +1,9 @@
-import Signup from "./Signup";
+import Hero from "./Hero";
 
 function SignupPage() {
   return (
     <>
-      <Signup />
+      <Hero />
     </>
   );
 }

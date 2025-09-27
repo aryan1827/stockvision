@@ -1,87 +1,119 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import "./Funds.css";
+import axios from "axios";
 
 const Funds = () => {
+  const [balance, setBalance] = useState(0);
+  const [amount, setAmount] = useState("");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:1008/dashboard/wallet/balance",
+          {
+            withCredentials: true, // include cookie for JWT
+          }
+        );
+        setBalance(res.data.wallet);
+      } catch (error) {
+        console.error("Error fetching wallet balance:", error);
+      }
+    };
+
+    fetchBalance();
+  }, []); // empty dependency array → runs once on mount
+
+  const handleSubmit = async (e, type) => {
+    e.preventDefault();
+    const value = parseFloat(amount);
+
+    if (!value || value <= 0) return;
+
+    try {
+      if (type === "add") {
+        const res = await axios.post(
+          "http://localhost:1008/dashboard/wallet/add",
+          { amount: value },
+          { withCredentials: true } 
+        );
+        setBalance(res.data.wallet); 
+        setMessage(`₹${value.toLocaleString()} added successfully!`);
+      } else if (type === "withdraw") {
+        if (value > balance) {
+          setMessage("Insufficient funds!");
+          return;
+        }
+        const res = await axios.post(
+          "http://localhost:1008/dashboard/wallet/withdraw",
+          { amount: value },
+          { withCredentials: true }
+        );
+        setBalance(res.data.wallet); // ✅ sync with backend
+        setMessage(`₹${value.toLocaleString()} withdrawn successfully!`);
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage("Transaction failed. Please try again.");
+    }
+
+    setAmount("");
+  };
+
   return (
-    <>
-      <div className="funds">
-        <p>Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green">Add funds</Link>
-        <Link className="btn btn-blue">Withdraw</Link>
-      </div>
+    <div className="wallet-container card shadow-lg p-4">
+      <h2 className="text-center mb-3">Wallet Balance</h2>
+      <p className="balance-display text-center mb-4">
+        ₹{balance.toLocaleString()}
+      </p>
 
-      <div className="row">
-        <div className="col">
-          <span>
-            <p>Equity</p>
-          </span>
-
-          <div className="table">
-            <div className="data">
-              <p>Available margin</p>
-              <p className="imp colored">4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Used margin</p>
-              <p className="imp">3,757.30</p>
-            </div>
-            <div className="data">
-              <p>Available cash</p>
-              <p className="imp">4,043.10</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>3736.40</p>
-            </div>
-            <div className="data">
-              <p>Payin</p>
-              <p>4064.00</p>
-            </div>
-            <div className="data">
-              <p>SPAN</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Delivery margin</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Exposure</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Options premium</p>
-              <p>0.00</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Collateral (Liquid funds)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Collateral (Equity)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Total Collateral</p>
-              <p>0.00</p>
-            </div>
-          </div>
+      <form className="mb-3">
+        <div className="mb-3">
+          <input
+            type="number"
+            className="form-control form-control-lg"
+            placeholder="Enter amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            min="0"
+            step="0.01"
+          />
         </div>
 
-        <div className="col">
-          <div className="commodity">
-            <p>You don't have a commodity account</p>
-            <Link className="btn btn-blue">Open Account</Link>
-          </div>
+        <div className="d-flex gap-2 justify-content-center">
+          <button
+            type="button"
+            className="btn btn-success btn-lg"
+            onClick={(e) => handleSubmit(e, "add")}
+          >
+            Add Funds
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger btn-lg"
+            onClick={(e) => handleSubmit(e, "withdraw")}
+          >
+            Withdraw
+          </button>
         </div>
+      </form>
+
+      {message && (
+        <div
+          className={`alert text-center ${
+            message.includes("successfully") ? "alert-success" : "alert-danger"
+          }`}
+        >
+          {message}
+        </div>
+      )}
+
+      <div className="text-muted small text-center">
+        <div>• Minimum transaction: ₹1</div>
+        <div>• Withdrawals cannot exceed available balance</div>
       </div>
-    </>
+    </div>
   );
 };
 

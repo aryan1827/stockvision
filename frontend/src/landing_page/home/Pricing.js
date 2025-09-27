@@ -9,7 +9,7 @@ function Pricing() {
             in India. Flat fees and no hidden charges.
           </p>
           <a href="/home" style={{ textDecoration: "none" }}>
-            See pricing <i class="fa-solid fa-arrow-right"></i>
+            See pricing <i className="fa-solid fa-arrow-right"></i>
           </a>
         </div>
         <div className="col-2"></div>

@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
-  const [isDropdown, setisDropdown] = useState(false);
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
   };
 
-  const handleProfileClick = () => {
-    setisDropdown(!isDropdown);
+  const handleProfileClick = async () => {
+    try {
+      await axios.post(
+        "http://localhost:1008/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+      window.location.href = "/login";
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
 
   const menuClass = "menu";
@@ -18,7 +27,9 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <Link to="/"><img src="sv.jpg" alt="icon" style={{ width: "40px" }} /></Link>
+      <Link to="/">
+        <img src="sv.jpg" alt="icon" style={{ width: "40px" }} />
+      </Link>
       <div className="menus">
         <ul>
           <li>
@@ -80,7 +91,9 @@ const Menu = () => {
         <hr />
         <div className="profile">
           <div className="avatar">ZU</div>
-          <p className="username" onClick={handleProfileClick}>USERID</p>
+          <p className="username" onClick={handleProfileClick}>
+            Logout
+          </p>
         </div>
       </div>
     </div>

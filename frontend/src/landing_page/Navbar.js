@@ -37,21 +37,6 @@ function Navbar() {
                 About
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/product">
-                Products
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/pricing">
-                Pricing
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/support">
-                Support
-              </Link>
-            </li>
           </ul>
         </div>
       </div>

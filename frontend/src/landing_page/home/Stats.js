@@ -48,11 +48,11 @@ function Stats() {
           ></img>
           <div className="text-center">
             <a href="/home" className="ms-4 me-4" style={{ textDecoration: "none" }}>
-              Explore our products <i class="fa-solid fa-arrow-right"></i>
+              Explore our products <i className="fa-solid fa-arrow-right"></i>
             </a>
 
             <a href="/home" className="ms-4 me-4" style={{ textDecoration: "none" }}>
-              Try Demo <i class="fa-solid fa-arrow-right"></i>
+              Try Demo <i className="fa-solid fa-arrow-right"></i>
             </a>
           </div>
         </div>
