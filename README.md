@@ -1,15 +1,39 @@
-# STOCKVISION
-A Zerodha-inspired platform which allows users to buy and sell stocks along with analyzing charts.
+# StockVision
 
-🚧 Ongoing Project 🚧
+**StockVision** is a Zerodha-inspired platform that allows users to **buy and sell stocks**, manage their portfolio, and **analyze stock charts** for informed investment decisions.  
 
-## Folder Structure
+---
 
-- `frontend/` - Main user-facing React app
-- `dashboard/` - Admin dashboard React app
-- `backend/` - Server-side logic (to be developed)
+## 🚀 Features
 
-## Status
+- Fully functional **React frontend** for users  
+- **User dashboard** for monitoring trades, holdings, and analytics    
+- Stock chart visualization for better decision making  
+- Secure JWT-based authentication
 
-✅ Frontend UI and dashboard UI ready  
-🛠 Backend under construction
+
+---
+
+## 🗂 Project Structure
+
+StockVision/
+├── frontend/     # User-facing React application
+├── dashboard/    # Admin dashboard React application
+├── backend/      # Server-side logic (Node.js + Express, MongoDB)
+├── .gitignore
+└── README.md
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend & Dashboard:** React, CSS, HTML  
+- **Backend:** Node.js, Express  
+- **Database:** MongoDB  
+- **Authentication:** JWT (JSON Web Tokens)  
+- **API Requests:** Axios  
+- **Version Control:** Git & GitHub  
+
+---
+
+
