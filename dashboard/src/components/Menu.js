@@ -18,7 +18,7 @@ const Menu = () => {
         {},
         { withCredentials: true }
       );
-      window.location.href = `${FRONTEND_URL}/login`;
+      window.location.href = `${FRONTEND_URL}`;
     } catch (err) {
       console.error("Logout failed:", err);
     }

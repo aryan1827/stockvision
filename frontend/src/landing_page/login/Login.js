@@ -128,7 +128,7 @@ function Login() {
             <div className="text-center">
               <p className="small-text">
                 New to stockvision ?{" "}
-                <Link to={`${API_URL}/signup`}>Signup Now</Link>
+                <Link to="/signup">Signup Now</Link>
               </p>
             </div>
           </div>
