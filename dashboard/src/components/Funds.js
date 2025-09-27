@@ -3,6 +3,9 @@ import "./Funds.css";
 import axios from "axios";
 
 const Funds = () => {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
@@ -11,7 +14,7 @@ const Funds = () => {
     const fetchBalance = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:1008/dashboard/wallet/balance",
+          `${API_URL}/dashboard/wallet/balance`,
           {
             withCredentials: true, // include cookie for JWT
           }
@@ -34,11 +37,11 @@ const Funds = () => {
     try {
       if (type === "add") {
         const res = await axios.post(
-          "http://localhost:1008/dashboard/wallet/add",
+          `${API_URL}/dashboard/wallet/add`,
           { amount: value },
-          { withCredentials: true } 
+          { withCredentials: true }
         );
-        setBalance(res.data.wallet); 
+        setBalance(res.data.wallet);
         setMessage(`₹${value.toLocaleString()} added successfully!`);
       } else if (type === "withdraw") {
         if (value > balance) {
@@ -46,7 +49,7 @@ const Funds = () => {
           return;
         }
         const res = await axios.post(
-          "http://localhost:1008/dashboard/wallet/withdraw",
+          `${API_URL}/dashboard/wallet/withdraw`,
           { amount: value },
           { withCredentials: true }
         );

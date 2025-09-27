@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import Home from "./components/Home";
 import axios from "axios";
 
-
 function App() {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [auth, setAuth] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:1008/auth/verify", { withCredentials: true })
+      .get(`${API_URL}/auth/verify`, { withCredentials: true })
       .then(() => setAuth(true))
       .catch(() => setAuth(false));
   }, []);
@@ -16,7 +18,7 @@ function App() {
   if (auth === null) return <p>Loading...</p>;
 
   if (!auth) {
-    window.location.href = "http://localhost:3001/signup";
+    window.location.href = `${FRONTEND_URL}/signup`;
     return null;
   }
   return (

@@ -21,7 +21,12 @@ connectToMongoDB(uri)
 const cors = require("cors");
 app.use(
   cors({
-    origin: ["http://localhost:3001", "http://localhost:3002"],
+    origin: [
+      "http://localhost:3001",
+      "http://localhost:3002",
+      "https://stockvision-afq3.onrender.com",
+      "https://stockvision-dashboard.onrender.com",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -33,7 +38,6 @@ app.use(bodyParser.json());
 
 app.use("/auth", AuthRoutes);
 app.use("/dashboard", DashboardRoutes);
-
 
 // app.get("/addHoldings", async (req, res) => {
 //   let holdingsData = [
@@ -160,8 +164,6 @@ app.use("/dashboard", DashboardRoutes);
 //   });
 //   res.send("done");
 // });
-
-
 
 // app.get("/addPositions", async (req, res) => {
 //   let positionsData = [

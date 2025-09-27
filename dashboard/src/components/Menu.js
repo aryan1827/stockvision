@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Menu = () => {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
   const [selectedMenu, setSelectedMenu] = useState(0);
 
   const handleMenuClick = (index) => {
@@ -12,7 +14,7 @@ const Menu = () => {
   const handleProfileClick = async () => {
     try {
       await axios.post(
-        "http://localhost:1008/auth/logout",
+        `${API_URL}/auth/logout`,
         {},
         { withCredentials: true }
       );

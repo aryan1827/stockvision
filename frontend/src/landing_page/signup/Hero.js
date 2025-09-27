@@ -1,8 +1,11 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Hero() {
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
   const {
     register,
     handleSubmit,
@@ -14,26 +17,26 @@ function Hero() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1008/auth/verify", { withCredentials: true })
+      .get(`${API_URL}/auth/verify`, { withCredentials: true })
       .then(() => {
-        window.location.href = "http://localhost:3002";
+        window.location.href = `${DASHBOARD_URL}`;
       })
       .catch((error) => {
         if (error.response?.status !== 401) {
-          console.error('Auth verification failed:', error);
+          console.error("Auth verification failed:", error);
         }
         setCheckingAuth(false);
       });
-  }, []);
+  }, [API_URL, DASHBOARD_URL]);
 
   const onSubmit = async (data) => {
     setServerError("");
     axios
-      .post("http://localhost:1008/auth/signup", data, {
+      .post(`${API_URL}/auth/signup`, data, {
         withCredentials: true,
       })
       .then((res) => {
-        window.location.href = "http://localhost:3002";
+        window.location.href = `${DASHBOARD_URL}`;
       })
       .catch((err) => {
         if (err.response && err.response.data.message) {
@@ -85,7 +88,7 @@ function Hero() {
           <div className="text-start">
             <h3 className="text-muted">Signup Now</h3>
             <p className="text-muted">
-              Have an existing account? <a href="/login">Login Now</a>
+              Have an existing account? <Link to="/login">Login Now</Link>
             </p>
             <form onSubmit={handleSubmit(onSubmit)}>
               <input

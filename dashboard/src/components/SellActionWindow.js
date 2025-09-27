@@ -5,6 +5,9 @@ import "./BuyActionWindow.css";
 import { watchlist } from "../data/data";
 
 const SellActionWindow = ({ symbol }) => {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [stockQuantity, setStockQuantity] = useState(1);
   const { closeSellWindow } = useContext(GeneralContext);
   const [loading, setLoading] = useState(false);
@@ -15,7 +18,7 @@ const SellActionWindow = ({ symbol }) => {
     try {
       setLoading(true);
       await axios.post(
-        "http://localhost:1008/dashboard/sellOrder",
+        `${API_URL}/dashboard/sellOrder`,
         {
           name: symbol,
           qty: stockQuantity,

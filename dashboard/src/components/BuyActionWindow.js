@@ -3,8 +3,10 @@ import axios from "axios";
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
-
 const BuyActionWindow = ({ symbol }) => {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0);
   const { closeBuyWindow } = useContext(GeneralContext);
@@ -14,7 +16,7 @@ const BuyActionWindow = ({ symbol }) => {
     try {
       setLoading(true);
       await axios.post(
-        "http://localhost:1008/dashboard/newOrder",
+        `${API_URL}/dashboard/newOrder`,
         {
           name: symbol,
           qty: stockQuantity,

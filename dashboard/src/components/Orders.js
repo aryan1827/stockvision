@@ -4,6 +4,8 @@ import axios from "axios";
 import { watchlist } from "../data/data";
 
 const Orders = () => {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
   const [orders, setOrders] = useState([]);
 
   const totalPNL = useMemo(() => {
@@ -16,7 +18,7 @@ const Orders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1008/dashboard/orders", {
+      .get(`${API_URL}/dashboard/orders`, {
         withCredentials: true,
       })
       .then((res) => setOrders(res.data))

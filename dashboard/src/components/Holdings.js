@@ -5,8 +5,11 @@ import Chart from "./Chart";
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
-    axios.get("http://localhost:1008/dashboard/addHoldings").then((res) => {
+    axios.get(`${API_URL}/dashboard/addHoldings`).then((res) => {
       setAllHoldings(res.data);
     });
   }, []);

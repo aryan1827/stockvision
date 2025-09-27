@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./Login.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   const {
@@ -12,12 +13,16 @@ function Login() {
 
   const [serverError, setServerError] = useState("");
   const [checkingAuth, setCheckingAuth] = useState(true);
+  
+  const API_URL = process.env.REACT_APP_API_URL;
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:1008/auth/verify", { withCredentials: true })
+      .get(`${API_URL}/auth/verify`, { withCredentials: true })
       .then(() => {
-        window.location.href = "http://localhost:3002";
+        window.location.href = `${DASHBOARD_URL}`;
       })
       .catch(() => {
         setCheckingAuth(false);
@@ -27,11 +32,11 @@ function Login() {
   const onSubmit = (data) => {
     setServerError("");
     axios
-      .post("http://localhost:1008/auth/login", data, {
+      .post(`${API_URL}/auth/login`, data, {
         withCredentials: true,
       })
       .then((res) => {
-        window.location.href = "http://localhost:3002";
+        window.location.href = `${DASHBOARD_URL}`;
       })
       .catch((err) => {
         if (err.response && err.response.data.message) {
@@ -62,7 +67,7 @@ function Login() {
           <div className="card-body">
             <div className="mb-2 mt-2 p-3 d-flex justify-content-center">
               <a
-                href="http://localhost:3001"
+                href={`${DASHBOARD_URL}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -123,7 +128,7 @@ function Login() {
             <div className="text-center">
               <p className="small-text">
                 New to stockvision ?{" "}
-                <a href="http://localhost:3001/signup">Signup Now</a>
+                <Link to={`${API_URL}/signup`}>Signup Now</Link>
               </p>
             </div>
           </div>

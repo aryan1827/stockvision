@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Positions = () => {
+  const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:1008/dashboard/addPositions").then((res) => {
+    axios.get(`${API_URL}/dashboard/addPositions`).then((res) => {
       setAllPositions(res.data);
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <>
